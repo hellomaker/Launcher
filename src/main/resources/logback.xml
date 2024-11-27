@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 日志存放路径 -->
+    <property name="FILE_PATH" value="logs" />
+    <!-- 日志输出格式 -->
+    <property name="LOG_PATTERN" value="[ %-5level] [%d] [%thread]  %logger{20} - [%method:%line] - %msg%n" />
+
+    <!-- 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
+    </appender>
+
+    <!-- 系统日志输出 -->
+    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/info.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${FILE_PATH}/%d{yyyy/MM/dd}/INFO-%d{yyyy-MM-dd}_%i.log.gz</fileNamePattern>
+            <!--日志文件最大的大小-->
+                <maxFileSize>30MB</maxFileSize>
+            <!-- 日志最大的历史 100天 -->
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>INFO</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="file_warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/warn.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${FILE_PATH}/%d{yyyy/MM/dd}/WARN-%d{yyyy-MM-dd}_%i.log.gz</fileNamePattern>
+            <!--日志文件最大的大小-->
+                <maxFileSize>30MB</maxFileSize>
+            <!-- 日志最大的历史 100天 -->
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>WARN</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FILE_PATH}/error.log</file>
+        <!-- 循环政策：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${FILE_PATH}/%d{yyyy/MM/dd}/ERROR-%d{yyyy-MM-dd}_%i.log.gz</fileNamePattern>
+            <!--日志文件最大的大小-->
+                <maxFileSize>30MB</maxFileSize>
+            <!-- 日志最大的历史 100天 -->
+            <maxHistory>100</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>ERROR</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="async_file_info" class="ch.qos.logback.classic.AsyncAppender">
+        <!--  当队列的剩余容量小于这个阈值并且当前日志level为 TRACE, DEBUG or INFO ，则丢弃这些日志。  -->
+        <discardingThreshold>0</discardingThreshold>
+        <!--  更改默认的队列的深度,该值会影响性能.默认值为256  -->
+        <queueSize>1024</queueSize>
+        <!--  新增这行为了打印栈堆信息  -->
+        <includeCallerData>true</includeCallerData>
+        <!--  添加附加的appender,最多只能添加一个  -->
+        <appender-ref ref="file_info"/>
+    </appender>
+    <appender name="async_file_warn" class="ch.qos.logback.classic.AsyncAppender">
+        <!--  当队列的剩余容量小于这个阈值并且当前日志level为 TRACE, DEBUG or INFO ，则丢弃这些日志。  -->
+        <discardingThreshold>0</discardingThreshold>
+        <!--  更改默认的队列的深度,该值会影响性能.默认值为256  -->
+        <queueSize>1024</queueSize>
+        <!--  新增这行为了打印栈堆信息  -->
+        <includeCallerData>true</includeCallerData>
+        <!--  添加附加的appender,最多只能添加一个  -->
+        <appender-ref ref="file_warn"/>
+    </appender>
+    <appender name="async_file_error" class="ch.qos.logback.classic.AsyncAppender">
+        <!--  当队列的剩余容量小于这个阈值并且当前日志level为 TRACE, DEBUG or INFO ，则丢弃这些日志。  -->
+        <discardingThreshold>0</discardingThreshold>
+        <!--  更改默认的队列的深度,该值会影响性能.默认值为256  -->
+        <queueSize>1024</queueSize>
+        <!--  新增这行为了打印栈堆信息  -->
+        <includeCallerData>true</includeCallerData>
+        <!--  添加附加的appender,最多只能添加一个  -->
+        <appender-ref ref="file_error"/>
+    </appender>
+
+    <!-- 系统模块日志级别控制  -->
+    <logger name="cn.xj" level="warn" />
+    <logger name="cn.qos" level="warn" />
+    <!-- Spring日志级别控制  -->
+    <logger name="org.springframework" level="info" />
+
+
+    <!--系统操作日志-->
+    <root level="info">
+        <appender-ref ref="console" />
+        <appender-ref ref="async_file_info" />
+        <appender-ref ref="async_file_warn" />
+        <appender-ref ref="async_file_error" />
+    </root>
+
+</configuration>

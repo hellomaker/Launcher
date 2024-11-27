@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="380.0" maxWidth="520.0" minHeight="380.0" minWidth="520.0" prefHeight="380.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.hellomaker.launcher.controller.ActivateWindowController">
+    <children>
+        <VBox alignment="center" spacing="10.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+            <children>
+                <TextArea fx:id="verifyNumber" promptText="输入激活码" style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 5; -fx-font-size: 12pt; -fx-text-fill: #4B9649;" wrapText="true" />
+                <HBox prefHeight="30.0" prefWidth="250.0" spacing="10.0">
+                    <children>
+                        <Button fx:id="activateButton" mnemonicParsing="true" onAction="#handleActivateButtonClick" style="-fx-background-color: #4a9bff; -fx-text-fill: #ffffff; -fx-border-color: lightgray; -fx-border-radius: 5;" text="激活" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+                        <Button fx:id="cancelButton" mnemonicParsing="true" onAction="#handleCancelButtonClick" style="-fx-background-color: #eaeaea; -fx-text-fill: #333333; -fx-border-color: lightgray; -fx-border-radius: 5;" text="取消">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+      <VBox layoutX="20.0" layoutY="8.0" prefHeight="54.0" prefWidth="65.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="序列号:">
+               <font>
+                  <Font size="14.0" />
+               </font></Text>
+         </children>
+         <padding>
+            <Insets top="15.0" />
+         </padding>
+      </VBox>
+      <VBox layoutX="94.0" layoutY="8.0" prefHeight="54.0" prefWidth="136.0">
+         <children>
+            <Text fx:id="serialNumber" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font size="14.0" />
+               </font></Text>
+         </children>
+         <padding>
+            <Insets top="15.0" />
+         </padding>
+      </VBox>
+    </children>
+</AnchorPane>

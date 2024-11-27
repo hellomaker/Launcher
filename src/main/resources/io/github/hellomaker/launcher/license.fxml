@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="380.0" maxWidth="520.0" minHeight="380.0" minWidth="520.0" prefHeight="380.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.hellomaker.launcher.controller.LicenseController">
+   <children>
+      <VBox layoutY="71.0" maxHeight="250.0" maxWidth="520.0" minHeight="250.0" minWidth="520.0" prefHeight="250.0" prefWidth="520.0">
+         <children>
+            <HBox maxHeight="200.0" prefHeight="129.0" prefWidth="601.0">
+               <children>
+                  <VBox prefHeight="110.0" prefWidth="100.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="序列号：">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="有效期至：">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="激活模块：">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="10.0" top="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox maxWidth="380.0" minHeight="121.0" minWidth="380.0" prefHeight="143.0" prefWidth="380.0">
+                     <children>
+                        <Text fx:id="serialNumber" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="validDate" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Text>
+                        <Label fx:id="validMenuNameList2" maxWidth="370.0" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#reActive" onMouseClicked="#run" style="-fx-background-color: #eaeaea; -fx-text-fill: #333333; -fx-border-color: lightgray; -fx-border-radius: 5;" text="重新激活">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="状态：">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="10.0" top="20.0" />
+                     </padding>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Text fx:id="status" strokeType="OUTSIDE" strokeWidth="0.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button layoutX="200.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#run" style="-fx-background-color: #4a9bff; -fx-text-fill: #ffffff; -fx-border-color: lightgray; -fx-border-radius: 5;" text="运行" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelButton" layoutX="275.0" layoutY="335.0" mnemonicParsing="true" onAction="#stop" style="-fx-background-color: #eaeaea; -fx-text-fill: #333333; -fx-border-color: lightgray; -fx-border-radius: 5;" text="停止">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+      <HBox prefHeight="65.0" prefWidth="601.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="iXLAB">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+         <padding>
+            <Insets left="20.0" top="20.0" />
+         </padding>
+      </HBox>
+   </children>
+</AnchorPane>

@@ -1,15 +1,19 @@
 package io.github.hellomaker.launcher.app;
 
 import io.github.hellomaker.launcher.pool.MyThreadPool;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 
+@Slf4j
 public abstract class AppRunner {
     static final String[] args = {
 
     };
 
-    static final String jarPath = "E:\\Desktop\\materialManager\\git\\myjar\\jar/encrypt_starter-0.0.0.4.jar";
+//    static final String jarPath = "E:\\Desktop\\materialManager\\git\\myjar\\jar/encrypt_starter-0.0.0.4.jar";
+//    static final String jarPath = "E:\\Desktop\\materialManager\\git\\praise\\server\\target/praise.server-1.0-SNAPSHOT_encrypt.jar";
+    static final String jarPath = "starter.jar";
 
     public static void run(String passwd, String... args) throws Exception {
         MyThreadPool.getInstance().submit(
@@ -54,7 +58,7 @@ public abstract class AppRunner {
 
     private static void runInternal(String passwd, String... args) {
         // 要执行的命令
-        StringBuilder command = new StringBuilder("java --add-opens java.base/jdk.internal.loader=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED -Dfile.encoding=utf-8  -jar " + jarPath);
+        StringBuilder command = new StringBuilder("D:/iXLab/condition/jre/bin/java.exe --add-opens java.base/jdk.internal.loader=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED -Dfile.encoding=utf-8  -jar " + jarPath);
         for (String arg : args) {
             command.append(" ").append(arg);
         }
@@ -76,15 +80,17 @@ public abstract class AppRunner {
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }
-
+            log.info("run internal 进程启动");
             // 等待命令执行完成
             int exitCode = process.waitFor();
             System.out.println("Command executed with exit code: " + exitCode);
-
+            log.info("run internal 进程退出");
             // 关闭资源
             reader.close();
+//            log.info("run internal 启动成功");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            log.error("run internal 启动失败：", e);
         }
     }
 

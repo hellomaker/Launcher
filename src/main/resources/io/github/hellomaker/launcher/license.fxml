@@ -103,7 +103,7 @@
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Text fx:id="status" strokeType="OUTSIDE" strokeWidth="0.0">
+                        <Text fx:id="status" strokeType="OUTSIDE" strokeWidth="0.0" text="未运行">
                            <font>
                               <Font size="14.0" />
                            </font>

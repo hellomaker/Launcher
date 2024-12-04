@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ControllerClass">
+    <!-- 左侧导航栏 -->
+    <VBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: #2196F3;" prefWidth="200" styleClass="sidebar">
+        <HBox spacing="10" style="-fx-padding: 10;">
+            <Label text="XP. CN" style="-fx-font-size: 36; -fx-font-weight: bold; -fx-text-fill: white;"/>
+        </HBox>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <ImageView fx:id="homeIcon" fitWidth="24" fitHeight="24" style="-fx-background-color: white; -fx-padding: 5;"/>
+                <Label text="首页" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            </HBox>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <ImageView fx:id="websiteIcon" fitWidth="24" fitHeight="24" style="-fx-background-color: white; -fx-padding: 5;"/>
+                <Label text="网站" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            </HBox>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <ImageView fx:id="databaseIcon" fitWidth="24" fitHeight="24" style="-fx-background-color: white; -fx-padding: 5;"/>
+                <Label text="数据库" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            </HBox>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <ImageView fx:id="ftpIcon" fitWidth="24" fitHeight="24" style="-fx-background-color: white; -fx-padding: 5;"/>
+                <Label text="FTP" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            </HBox>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <ImageView fx:id="softwareIcon" fitWidth="24" fitHeight="24" style="-fx-background-color: white; -fx-padding: 5;"/>
+                <Label text="软件管理" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            </HBox>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <ImageView fx:id="settingsIcon" fitWidth="24" fitHeight="24" style="-fx-background-color: white; -fx-padding: 5;"/>
+                <Label text="设置" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+    </VBox>
+    <!-- 右侧主要内容区域 -->
+    <VBox alignment="CENTER_LEFT" spacing="10" style="-fx-background-color: white;" prefWidth="600" styleClass="main-content">
+        <HBox spacing="10" style="-fx-padding: 10;">
+            <Label text="一键启动" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <Label text="WNMP" style="-fx-font-size: 14;"/>
+                <Circle fill="red" radius="5"/>
+                <Button text="启动" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            </HBox>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <Label text="开机自启" style="-fx-font-size: 14;"/>
+                <Circle fill="red" radius="5"/>
+                <Button text="启用" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            </HBox>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <Label text="数据库工具" style="-fx-font-size: 14;"/>
+                <Button text="打开" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            </HBox>
+        </HBox>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Label text="套件" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <Label text="Apache2.4.39" style="-fx-font-size: 14;"/>
+                <Circle fill="red" radius="5"/>
+                <Button text="启动" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                <Button text="重启" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;"/>
+                <Button text="配置" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            </HBox>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <Label text="FTP0.9.60" style="-fx-font-size: 14;"/>
+                <Circle fill="red" radius="5"/>
+                <Button text="启动" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                <Button text="重启" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;"/>
+                <Button text="配置" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            </HBox>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <Label text="MySQL5.7.26" style="-fx-font-size: 14;"/>
+                <Circle fill="red" radius="5"/>
+                <Button text="启动" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                <Button text="重启" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;"/>
+                <Button text="配置" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            </HBox>
+            <HBox spacing="10" style="-fx-padding: 5;">
+                <Label text="Nginx1.15.11" style="-fx-font-size: 14;"/>
+                <Circle fill="red" radius="5"/>
+                <Button text="启动" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+                <Button text="重启" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;"/>
+                <Button text="配置" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+        <VBox spacing="10" style="-fx-padding: 10;">
+            <Label text="运行状态" style="-fx-font-size: 14;"/>
+            <TextArea text="2024-12-03 15:00:45 Nginx1.15.11 已停止\n2024-12-03 15:00:45 MySQL5.7.26 已停止\n2024-12-03 15:00:45 Nginx1.15.11 已启动\n2024-12-03 15:00:45 Nginx1.15.11 正在启动......\n2024-12-03 15:00:45 MySQL5.7.26 已启动\n2024-12-03 15:00:44 MySQL5.7.26 正在启动......" style="-fx-font-size: 14;"/>
+            <Button text="清空" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+        </VBox>
+    </VBox>
+</HBox>

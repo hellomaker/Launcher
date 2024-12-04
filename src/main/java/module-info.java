@@ -1,7 +1,6 @@
 module io.github.hellomaker.launcher {
     requires javafx.fxml;
     requires org.slf4j;
-    requires com.dlsc.formsfx;
     requires org.apache.commons.lang3;
     requires static lombok;
     requires com.alibaba.fastjson2;

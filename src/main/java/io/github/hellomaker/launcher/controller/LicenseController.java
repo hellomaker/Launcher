@@ -1,6 +1,7 @@
 package io.github.hellomaker.launcher.controller;
 
 import io.github.hellomaker.launcher.Storage;
+import io.github.hellomaker.launcher.app.AppConst;
 import io.github.hellomaker.launcher.app.AppRunner;
 import io.github.hellomaker.launcher.app.ProcessUtil;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
@@ -39,9 +40,9 @@ public class LicenseController {
         try {
             if (Storage.getInstance().isActive()) {
                 VerifyInfo verifyInfo = Storage.getInstance().getVerifyInfo();
-                String pidByPort = ProcessUtil.findPidByPort(8888);
+                String pidByPort = ProcessUtil.findPidByPort(AppConst.APP_PORT);
                 ProcessUtil.taskKill(pidByPort);
-                log.info("close 8888 : pid : " + pidByPort + " success.");
+                log.info("close " + AppConst.APP_PORT + " : pid : " + pidByPort + " success.");
                 if (verifyInfo.getValidMenuIdList() != null) {
                     String collect = verifyInfo
                             .getValidMenuIdList()
@@ -52,6 +53,7 @@ public class LicenseController {
                 } else {
                     Storage.getInstance().run();
                 }
+                log.info("启动成功");
             }
         } catch (Exception e) {
             log.error("启动错误：", e);

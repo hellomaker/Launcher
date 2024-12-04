@@ -1,5 +1,6 @@
 package io.github.hellomaker.launcher;
 
+import io.github.hellomaker.launcher.app.AppConst;
 import io.github.hellomaker.launcher.app.AppRunner;
 import io.github.hellomaker.launcher.app.ProcessUtil;
 import io.github.hellomaker.launcher.app.StatusEnum;
@@ -8,6 +9,7 @@ import io.github.hellomaker.launcher.verify.SystemUtil;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
 import io.github.hellomaker.launcher.verify.storage.SaferStorage;
 import io.github.hellomaker.launcher.verify.storage.SaferStorageImpl;
+import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
 import lombok.extern.slf4j.Slf4j;
@@ -62,11 +64,26 @@ public class Storage {
     public void stopApp() {
         String pidByPort = null;
         try {
-            pidByPort = ProcessUtil.findPidByPort(8888);
+            pidByPort = ProcessUtil.findPidByPort(AppConst.APP_PORT);
             ProcessUtil.taskKill(pidByPort);
             status.set(StatusEnum.NOT_RUNNING);
         } catch (Exception e) {
             log.error("程序退出，执行任务错误：", e);
+        }
+    }
+
+    public void whatStatus() {
+        try {
+            String pidByPort = ProcessUtil.findPidByPort(AppConst.APP_PORT);
+//            Platform.runLater(() -> {
+                if (StringUtils.isEmpty(pidByPort)) {
+                    status.set(StatusEnum.NOT_RUNNING);
+                } else {
+                    status.set(StatusEnum.IN_RUNNING);
+                }
+//            });
+        } catch (Exception e) {
+
         }
     }
 
@@ -105,7 +122,7 @@ public class Storage {
     public void addStatusListener(Consumer<StatusEnum> changeListener) {
         status.addListener((observableValue, statusEnum, t1) -> changeListener.accept(t1));
         try {
-            String pidByPort = ProcessUtil.findPidByPort(8888);
+            String pidByPort = ProcessUtil.findPidByPort(AppConst.APP_PORT);
             if (StringUtils.isEmpty(pidByPort)) {
                 status.set(StatusEnum.NOT_RUNNING);
             } else {
@@ -118,7 +135,7 @@ public class Storage {
 
     public void run(String... args) {
         try {
-            AppRunner.run("hellomaker", args);
+            AppRunner.run("6z_yWCo$jVVweh_5", args);
             status.set(StatusEnum.IN_RUNNING);
         } catch (Exception e) {
             log.error("启动错误：", e);

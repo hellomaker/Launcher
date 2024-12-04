@@ -1,6 +1,8 @@
 package io.github.hellomaker.launcher;
 
 import com.dustinredmond.fxtrayicon.FXTrayIcon;
+import io.github.hellomaker.launcher.app.AppConst;
+import io.github.hellomaker.launcher.app.ProcessUtil;
 import io.github.hellomaker.launcher.app.StatusEnum;
 import io.github.hellomaker.launcher.pool.MyThreadPool;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
@@ -93,8 +95,8 @@ public class LauncherApplication extends Application {
         });
 
         Storage.getInstance().addStatusListener(statusEvent -> {
-            Text statusText = (Text) licensePane.lookup("#status");
             Platform.runLater(() -> {
+                Text statusText = (Text) licensePane.lookup("#status");
                 if (statusEvent == StatusEnum.NOT_RUNNING) {
                     statusText.setText("未运行");
                 } else if (statusEvent == StatusEnum.RUNNING) {
@@ -107,6 +109,7 @@ public class LauncherApplication extends Application {
             });
         });
 
+        Storage.getInstance().whatStatus();
         Storage.getInstance().isActive();
         stage.setScene(activeScene);
         stage.setTitle("Launcher");
@@ -119,7 +122,6 @@ public class LauncherApplication extends Application {
 //设置为false时点击关闭按钮程序不会退出
         Platform.setImplicitExit(false);
         showIcon(stage);
-
     }
 
     public static void main(String[] args) {
@@ -130,6 +132,7 @@ public class LauncherApplication extends Application {
         if (FXTrayIcon.isSupported()) {
             FXTrayIcon icon = new FXTrayIcon(stage, getClass().getResource("logo.png"));
             MenuItem exit = new MenuItem("exit");
+            icon.setIconSize(60, 24);
             exit.setOnAction(e ->
 
 //            new Alert(Alert.AlertType.INFORMATION, "We just ran some JavaFX code from an AWT MenuItem!").showAndWait()

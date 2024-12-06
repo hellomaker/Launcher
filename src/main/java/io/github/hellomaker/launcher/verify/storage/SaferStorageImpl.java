@@ -1,16 +1,22 @@
 package io.github.hellomaker.launcher.verify.storage;
 
+import io.github.hellomaker.launcher.Storage;
 import io.github.hellomaker.launcher.common.SafeFileWriter;
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.IOException;
 
 /**
  * @author hellomaker
  */
-@Slf4j
+//@Slf4j
 public class SaferStorageImpl implements SaferStorage {
+
+    static Logger log = LoggerFactory.getLogger(SaferStorageImpl.class);
 
     @Override
     public String getTextFromFile(String path) {

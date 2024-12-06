@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<!-- 右侧主要内容区域 -->
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="io.github.hellomaker.launcher.controller.dashboard.IndexController"
+      spacing="10" style="-fx-background-color: white;" prefWidth="600" >
+    <HBox spacing="10" style="-fx-padding: 10;">
+        <Label text="一键启动" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+        <HBox spacing="10" style="-fx-padding: 5;">
+            <Label text="WNMP" style="-fx-font-size: 14;"/>
+            <Circle fill="red" radius="5"/>
+            <Button text="启动" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+        </HBox>
+        <HBox spacing="10" style="-fx-padding: 5;">
+            <Label text="开机自启" style="-fx-font-size: 14;"/>
+            <Circle fill="red" radius="5"/>
+            <Button text="启用" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+        </HBox>
+        <HBox spacing="10" style="-fx-padding: 5;">
+            <Label text="数据库工具" style="-fx-font-size: 14;"/>
+            <Button text="打开" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+        </HBox>
+    </HBox>
+    <VBox spacing="10" style="-fx-padding: 10;">
+        <Label text="套件" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+        <HBox spacing="10" style="-fx-padding: 5;">
+            <Label text="Redis 5.7" style="-fx-font-size: 14;"/>
+            <Circle fill="red" radius="5"/>
+            <Button text="启动" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            <Button text="重启" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;"/>
+            <Button text="配置" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+        </HBox>
+        <HBox spacing="10" style="-fx-padding: 5;">
+            <Label text="MySQL5.7.26" style="-fx-font-size: 14;"/>
+            <Circle fill="red" radius="5"/>
+            <Button text="启动" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+            <Button text="重启" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;"/>
+            <Button text="配置" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>
+        </HBox>
+    </VBox>
+    <VBox spacing="10" style="-fx-padding: 10;">
+        <Label text="运行状态" style="-fx-font-size: 14;"/>
+        <TextArea fx:id="verifyNumber" style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 5; -fx-font-size: 12pt; -fx-text-fill: #2196F3;" wrapText="true" text="2024-12-03 15:00:45 Nginx1.15.11 已停止\n2024-12-03 15:00:45 MySQL5.7.26 已停止\n2024-12-03 15:00:45 Nginx1.15.11 已启动"/>
+        <Button text="清空" style="-fx-background-color: #46a7f4; -fx-text-fill: white;"/>
+    </VBox>
+</VBox>
+

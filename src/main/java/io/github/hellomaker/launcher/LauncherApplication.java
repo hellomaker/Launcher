@@ -12,36 +12,36 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+//import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
 /**
  * @author hellomaker
  */
-@Slf4j
+//@Slf4j
 public class LauncherApplication extends Application {
+
+    Logger log = LoggerFactory.getLogger(LauncherApplication.class);
 
     @Override
     public void start(Stage stage) throws IOException {
 
-        AnchorPane licensePane = new FXMLLoader(LauncherApplication.class.getResource("license.fxml")).load();
+//        AnchorPane licensePane = new FXMLLoader(LauncherApplication.class.getResource("license.fxml")).load();
         AnchorPane activePane = new FXMLLoader(LauncherApplication.class.getResource("active.fxml")).load();
-        Scene licenseScene = new Scene(licensePane, 520, 380);
-        Scene activeScene = new Scene(activePane, 520, 380);
+        HBox dashboardPane = new FXMLLoader(LauncherApplication.class.getResource("dashboard.fxml")).load();
+//        Scene licenseScene = new Scene(licensePane, 520, 380);
+        Scene activeScene = new Scene(activePane, 750, 600);
+        Scene dashboardScene = new Scene(dashboardPane, 750, 600);
 
-        licensePane.setStyle("-fx-background-color: #F7F8FA;");
+//        licensePane.setStyle("-fx-background-color: #F7F8FA;");
         activePane.setStyle("-fx-background-color: #F7F8FA;");
-//                new FXMLLoader(LauncherApplication.class.getResource("main-view.fxml"));
-
-//        Label hello = (Label)load.lookup("#welcomeText");
-//        hello.setText("look up!");
-//        HBox container = new HBox();
-//        container.setMinWidth(520);
-//        container.set
-//        container.getChildren().add(activePane);
 
         // 注册JVM关闭钩子
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
@@ -64,54 +64,27 @@ public class LauncherApplication extends Application {
 
         Storage.getInstance().addActiveListener((observableValue, aBoolean, t1) -> {
             if (t1) {
-                VerifyInfo verifyInfo = Storage.getInstance().getVerifyInfo();
-                if (verifyInfo != null) {
-                    Text serialNumber = (Text) licensePane.lookup("#serialNumber");
-                    serialNumber.setText(verifyInfo.getSerialNumber());
-                    Text validDate = (Text) licensePane.lookup("#validDate");
-                    validDate.setText(verifyInfo.getValidDate());
-
-                    if (verifyInfo.getValidMenuNameList() != null) {
-//                        Text validMenuNameList = (Text) licensePane.lookup("#validMenuNameList");
-//                        // 将每个 Long 转换为 String
-//                        validMenuNameList.setText(String.join(",", verifyInfo
-//                                .getValidMenuNameList()));
-
-                        Label validMenuNameList2 = (Label) licensePane.lookup("#validMenuNameList2");
-                        validMenuNameList2.setText(String.join(",", verifyInfo
-                                .getValidMenuNameList()));
-                    }
-                }
                 Platform.runLater(() -> {
-                    stage.setScene(licenseScene);
+//                    stage.setScene(licenseScene);
+                    stage.setScene(dashboardScene);
                 });
             } else {
-                TextArea verifyNumber = (TextArea) activePane.lookup("#verifyNumber");
-                verifyNumber.setText("");
                 Platform.runLater(() -> {
+                    TextArea verifyNumber = (TextArea) activePane.lookup("#verifyNumber");
+                    verifyNumber.setText("");
                     stage.setScene(activeScene);
                 });
             }
         });
 
-        Storage.getInstance().addStatusListener(statusEvent -> {
-            Platform.runLater(() -> {
-                Text statusText = (Text) licensePane.lookup("#status");
-                if (statusEvent == StatusEnum.NOT_RUNNING) {
-                    statusText.setText("未运行");
-                } else if (statusEvent == StatusEnum.RUNNING) {
-                    statusText.setText("启动中");
-                } else if (statusEvent == StatusEnum.IN_RUNNING) {
-                    statusText.setText("正在运行");
-                } else {
-                    statusText.setText("启动失败");
-                }
-            });
-        });
-
         Storage.getInstance().whatStatus();
-        Storage.getInstance().isActive();
-        stage.setScene(activeScene);
+//        Storage.getInstance().isActive();
+        if (Storage.getInstance().isActive()) {
+            stage.setScene(dashboardScene);
+        } else {
+            stage.setScene(activeScene);
+        }
+
         stage.setTitle("Launcher");
 //        stage.setScene(scene);
         stage.show();
@@ -120,8 +93,15 @@ public class LauncherApplication extends Application {
 //        createTrayIcon(primaryStage);
 //        primaryStage.getIcons().add(new Image("file:res/logo.png"));
 //设置为false时点击关闭按钮程序不会退出
-        Platform.setImplicitExit(false);
-        showIcon(stage);
+
+//        Platform.setImplicitExit(false);
+//        showIcon(stage);
+
+        stage.setOnCloseRequest((e) -> {
+            stage.hide();
+            MyThreadPool.getInstance().close();
+            System.exit(0);
+        });
     }
 
     public static void main(String[] args) {
@@ -129,40 +109,35 @@ public class LauncherApplication extends Application {
     }
 
     private void showIcon(Stage stage) {
-        if (FXTrayIcon.isSupported()) {
-            FXTrayIcon icon = new FXTrayIcon(stage, getClass().getResource("logo.png"));
-            MenuItem exit = new MenuItem("exit");
-            icon.setIconSize(60, 24);
-            exit.setOnAction(e ->
+        try {
+            if (FXTrayIcon.isSupported()) {
+                FXTrayIcon icon = new FXTrayIcon(stage, getClass().getResource("logo.png"));
+                MenuItem exit = new MenuItem("exit");
+                icon.setIconSize(60, 24);
+                exit.setOnAction(e ->
 
 //            new Alert(Alert.AlertType.INFORMATION, "We just ran some JavaFX code from an AWT MenuItem!").showAndWait()
-                    {
-                        stage.hide();
-                        MyThreadPool.getInstance().close();
-                        System.exit(0);
-                    }
-            );
-            icon.addMenuItem(exit);
-
-            // We can also nest menus, below is an Options menu with sub-items
-//        Menu menuOptions = new Menu("Options");
-//        MenuItem miOn = new MenuItem("On");
-//        miOn.setOnAction(e -> System.out.println("Options -> On clicked"));
-//        MenuItem miOff = new MenuItem("Off");
-//        miOff.setOnAction(e -> System.out.println("Options -> Off clicked"));
-//        menuOptions.getItems().addAll(miOn, miOff);
-//        icon.addMenuItem(menuOptions);
-            icon.setOnAction((e) -> {
-                stage.show();
+                        {
+                            stage.hide();
+                            MyThreadPool.getInstance().close();
+                            System.exit(0);
+                        }
+                );
+                icon.addMenuItem(exit);
+                icon.setOnAction((e) -> {
+                    stage.show();
 //                icon.hide();
-            });
-            icon.show();
-        } else {
-            stage.setOnCloseRequest(e -> {
-                stage.hide();
-                MyThreadPool.getInstance().close();
-                System.exit(0);
-            });
+                });
+                icon.show();
+            } else {
+                stage.setOnCloseRequest(e -> {
+                    stage.hide();
+                    MyThreadPool.getInstance().close();
+                    System.exit(0);
+                });
+            }
+        } catch (Exception e) {
+            log.error("最小化图标支持错误", e);
         }
     }
 }

@@ -1,14 +1,12 @@
 package io.github.hellomaker.launcher.verify;
 
 
-import lombok.Data;
 
 import java.util.List;
 
 /**
  * @author hellomaker
  */
-@Data
 public class VerifyInfo {
 
     private String serialNumber;
@@ -17,8 +15,37 @@ public class VerifyInfo {
 
     private Long validTimes;
 
-    private List<Long> validMenuIdList;
+    private List<String> validSubSystemNameList;
 
-    private List<String> validMenuNameList;
+    public String getSerialNumber() {
+        return serialNumber;
+    }
 
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public String getValidDate() {
+        return validDate;
+    }
+
+    public void setValidDate(String validDate) {
+        this.validDate = validDate;
+    }
+
+    public Long getValidTimes() {
+        return validTimes;
+    }
+
+    public void setValidTimes(Long validTimes) {
+        this.validTimes = validTimes;
+    }
+
+    public List<String> getValidSubSystemNameList() {
+        return validSubSystemNameList;
+    }
+
+    public void setValidSubSystemNameList(List<String> validSubSystemNameList) {
+        this.validSubSystemNameList = validSubSystemNameList;
+    }
 }

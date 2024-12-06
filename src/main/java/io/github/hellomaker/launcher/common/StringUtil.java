@@ -1,9 +1,15 @@
 package io.github.hellomaker.launcher.common;
 
+import java.util.List;
+
 public class StringUtil {
 
     public static String[] split(String content, String regix) {
         return content.split(regix);
+    }
+
+    public static List<String> splitList(String content, String regix) {
+        return List.of(content.split(regix));
     }
 
     public static Integer[] splitAndToIntegerArr(String content, String regex) {
@@ -13,6 +19,19 @@ public class StringUtil {
             result[i] = Integer.valueOf(arr[i]);
         }
         return result;
+    }
+
+    public static Long[] splitAndToLongArr(String content, String regex) {
+        String[] arr = content.split(regex);
+        Long[] result = new Long[arr.length];
+        for (int i=0; i<result.length; i++) {
+            result[i] = Long.valueOf(arr[i]);
+        }
+        return result;
+    }
+
+    public static List<Long> splitAndToLongList(String content, String regex) {
+        return List.of(splitAndToLongArr(content, regex));
     }
 
     public static int[] splitAndToIntArr(String content, String regex) {
@@ -60,6 +79,10 @@ public class StringUtil {
             res += arr[i];
         }
         return res;
+    }
+
+    public static String combineArrToStr(List<String> arr) {
+        return combineArrToStr(arr.toArray(new String[0]));
     }
 
     /**

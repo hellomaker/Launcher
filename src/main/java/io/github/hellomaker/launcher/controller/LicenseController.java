@@ -4,21 +4,26 @@ import io.github.hellomaker.launcher.Storage;
 import io.github.hellomaker.launcher.app.AppConst;
 import io.github.hellomaker.launcher.app.AppRunner;
 import io.github.hellomaker.launcher.app.ProcessUtil;
+import io.github.hellomaker.launcher.app.StatusEnum;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
+import io.github.hellomaker.launcher.verify.storage.SaferStorageImpl;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.stream.Collectors;
 
 /**
  * @author hellomaker
  */
-@Slf4j
 public class LicenseController {
+
+    protected Logger log = LoggerFactory.getLogger(LicenseController.class);
 
     @FXML
     Text serialNumber;
@@ -43,11 +48,10 @@ public class LicenseController {
                 String pidByPort = ProcessUtil.findPidByPort(AppConst.APP_PORT);
                 ProcessUtil.taskKill(pidByPort);
                 log.info("close " + AppConst.APP_PORT + " : pid : " + pidByPort + " success.");
-                if (verifyInfo.getValidMenuIdList() != null) {
+                if (verifyInfo.getValidSubSystemNameList() != null) {
                     String collect = verifyInfo
-                            .getValidMenuIdList()
+                            .getValidSubSystemNameList()
                             .stream()
-                            .map(String::valueOf)  // 将每个 Long 转换为 String
                             .collect(Collectors.joining(","));// 用逗号连接
                     Storage.getInstance().run(collect);
                 } else {
@@ -68,6 +72,45 @@ public class LicenseController {
     @FXML
     public void initialize() {
 //        validMenuNameList.wrappingWidthProperty().bind(validMenuNameList.layoutBoundsProperty().get());
+        Storage.getInstance().addActiveListener((observableValue, aBoolean, t1) -> {
+            if (t1) {
+                VerifyInfo verifyInfo = Storage.getInstance().getVerifyInfo();
+                if (verifyInfo != null) {
+                    Platform.runLater(() -> {
+                        //                    Text serialNumber = (Text) licensePane.lookup("#serialNumber");
+                        serialNumber.setText(verifyInfo.getSerialNumber());
+//                    Text validDate = (Text) licensePane.lookup("#validDate");
+                        validDate.setText(verifyInfo.getValidDate());
+
+                        if (verifyInfo.getValidSubSystemNameList() != null) {
+//                        Text validMenuNameList = (Text) licensePane.lookup("#validMenuNameList");
+//                        // 将每个 Long 转换为 String
+//                        validMenuNameList.setText(String.join(",", verifyInfo
+//                                .getValidMenuNameList()));
+
+//                        Label validMenuNameList2 = (Label) licensePane.lookup("#validMenuNameList2");
+                            validMenuNameList2.setText(String.join(",", verifyInfo
+                                    .getValidSubSystemNameList()));
+                        }
+                    });
+                }
+            }
+        });
+
+        Storage.getInstance().addStatusListener(statusEvent -> {
+            Platform.runLater(() -> {
+//                Text statusText = (Text) licensePane.lookup("#status");
+                if (statusEvent == StatusEnum.NOT_RUNNING) {
+                    status.setText("未运行");
+                } else if (statusEvent == StatusEnum.RUNNING) {
+                    status.setText("启动中");
+                } else if (statusEvent == StatusEnum.IN_RUNNING) {
+                    status.setText("正在运行");
+                } else {
+                    status.setText("启动失败");
+                }
+            });
+        });
     }
 
     @FXML

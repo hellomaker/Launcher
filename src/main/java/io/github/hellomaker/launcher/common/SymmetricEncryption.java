@@ -1,14 +1,20 @@
 package io.github.hellomaker.launcher.common;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import io.github.hellomaker.launcher.controller.LicenseController;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 /**
  * @author hellomaker
  */
-@Slf4j
 public class SymmetricEncryption {
+
+    static Logger log = LoggerFactory.getLogger(SymmetricEncryption.class);
 
     /**
      * 密钥
@@ -39,14 +45,34 @@ public class SymmetricEncryption {
     }
 
     public static String encodeVerifyNumber(VerifyInfo verifyInfo) {
-        String jsonString = JSON.toJSONString(verifyInfo);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("serialNumber", verifyInfo.getSerialNumber());
+        jsonObject.put("vaildDate", verifyInfo.getValidDate());
+        jsonObject.put("vaildTimes", verifyInfo.getValidTimes());
+        jsonObject.put("vaildSubSystemNameList", StringUtil.combineArrToStr(verifyInfo.getValidSubSystemNameList()));
+        String jsonString = jsonObject.toJSONString();
+//                JSON.toJSONString(verifyInfo);
         return AESUtil.encrypt(jsonString, verifyKey(verifyInfo.getSerialNumber()));
     }
 
     public static VerifyInfo verifyInfo(String hexStr, String verifyNumber) {
         try {
             String decrypt = AESUtil.decrypt(verifyNumber, verifyKey(hexStr));
-            return JSON.parseObject(decrypt, VerifyInfo.class);
+            JSONObject parse = JSONObject.parse(decrypt);
+            VerifyInfo verifyInfo = new VerifyInfo();
+            assert parse != null;
+            verifyInfo.setSerialNumber(parse.getString("serialNumber"));
+            verifyInfo.setValidDate(parse.getString("vaildDate"));
+            verifyInfo.setValidTimes(parse.getLong("vaildTimes"));
+            String vaildSubSystemNameList = parse.getString("vaildSubSystemNameList");
+            if (vaildSubSystemNameList != null) {
+                List<String> strings = StringUtil.splitList(vaildSubSystemNameList, ",");
+                verifyInfo.setValidSubSystemNameList(strings);
+            }
+
+//            verifyInfo.setValidMenuNameList(List.of());
+//            return JSON.parseObject(decrypt, VerifyInfo.class);
+            return verifyInfo;
         } catch (Exception e) {
             log.error("解析 verifyinfo 错误", e);
             return null;

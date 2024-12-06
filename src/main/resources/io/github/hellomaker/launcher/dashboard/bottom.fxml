@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<HBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="io.github.hellomaker.launcher.controller.dashboard.BottomController"
+      >
+
+    <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+    </padding>
+    <spacing>10.0</spacing>
+    <HBox>
+        <padding>
+            <Insets bottom="5" left="5" right="5" top="5"/>
+        </padding>
+        <Rectangle fill="#FF0000" height="10" width="10">
+            <HBox.margin>
+                <Insets top="7.0"/>
+            </HBox.margin>
+        </Rectangle>
+        <Label style="-fx-font-size: 12; -fx-padding: 5; -fx-text-fill: black;" text="Redis 5.7"/>
+    </HBox>
+
+    <HBox>
+        <padding>
+            <Insets bottom="5" left="5" right="5" top="5"/>
+        </padding>
+        <Rectangle fill="#FF0000" height="10" width="10">
+            <HBox.margin>
+                <Insets top="7.0"/>
+            </HBox.margin>
+        </Rectangle>
+        <Label style="-fx-font-size: 12; -fx-padding: 5; -fx-text-fill: black;" text="MySQL8.0"/>
+    </HBox>
+
+    <Region HBox.hgrow="ALWAYS"/>
+
+    <HBox>
+        <padding>
+            <Insets bottom="5" left="5" right="5" top="5"/>
+        </padding>
+        <Label style="-fx-font-size: 12; -fx-padding: 5; -fx-text-fill: black;" text="版本: 0.0.0.1"/>
+    </HBox>
+</HBox>

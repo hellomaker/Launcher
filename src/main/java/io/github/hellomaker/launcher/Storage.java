@@ -4,34 +4,37 @@ import io.github.hellomaker.launcher.app.AppConst;
 import io.github.hellomaker.launcher.app.AppRunner;
 import io.github.hellomaker.launcher.app.ProcessUtil;
 import io.github.hellomaker.launcher.app.StatusEnum;
+import io.github.hellomaker.launcher.app.system.SystemInfo;
 import io.github.hellomaker.launcher.common.SymmetricEncryption;
-import io.github.hellomaker.launcher.verify.SystemUtil;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
 import io.github.hellomaker.launcher.verify.storage.SaferStorage;
 import io.github.hellomaker.launcher.verify.storage.SaferStorageImpl;
-import javafx.application.Platform;
 import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.function.Consumer;
 
 /**
  * @author hellomaker
  */
-@Slf4j
 public class Storage {
 
+    static Logger log = LoggerFactory.getLogger(Storage.class);
+
     final String storePath = "active/active.dat";
-    private String mainBoardSerialNumber;
+//    private String mainBoardSerialNumber;
+    private SystemInfo systemInfo;
     private SaferStorage activeCodeStorage;
 
     static Storage ins;
     static {
         ins = new Storage();
         ins.activeCodeStorage = new SaferStorageImpl();
-        ins.mainBoardSerialNumber = SystemUtil.getMainBoardSerialNumber();
+//        ins.mainBoardSerialNumber = SystemInfoFactory.getMainBoardSerialNumber();
+        ins.systemInfo = SystemInfoFactory.fetchSystemInfo();
 //        String activeCode = ins.getActiveCode();
 //        boolean isActive = false;
 //        if (activeCode != null) {
@@ -57,8 +60,17 @@ public class Storage {
         return StringUtils.isEmpty(text) ? null : text;
     }
 
-    public String getMainBoardSerialNumber() {
-        return mainBoardSerialNumber;
+//    public String getMainBoardSerialNumber() {
+//        return mainBoardSerialNumber;
+//    }
+
+
+    public SystemInfo getSystemInfo() {
+        return systemInfo;
+    }
+
+    public String getEncodeSerialNumber() {
+        return SymmetricEncryption.encodeSerialNumber(ins.systemInfo.getMotherboardInfo().getSerialNumber());
     }
 
     public void stopApp() {
@@ -91,7 +103,7 @@ public class Storage {
         boolean isActive = false;
         String activeCode = getActiveCode();
         if (activeCode != null) {
-            String encodeString = SymmetricEncryption.encodeSerialNumber(ins.mainBoardSerialNumber);
+            String encodeString = SymmetricEncryption.encodeSerialNumber(ins.systemInfo.getMotherboardInfo().getSerialNumber());
             VerifyInfo verifyInfo = SymmetricEncryption.verifyInfo(encodeString, activeCode);
             isActive = SymmetricEncryption.verifyNumber(encodeString, activeCode);
             if (isActive) {
@@ -105,7 +117,7 @@ public class Storage {
     public VerifyInfo getVerifyInfo() {
         String activeCode = getActiveCode();
         if (activeCode != null) {
-            String encodeString = SymmetricEncryption.encodeSerialNumber(ins.mainBoardSerialNumber);
+            String encodeString = SymmetricEncryption.encodeSerialNumber(ins.systemInfo.getMotherboardInfo().getSerialNumber());
             return SymmetricEncryption.verifyInfo(encodeString, activeCode);
         }
         return null;

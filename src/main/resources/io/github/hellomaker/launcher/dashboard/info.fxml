@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="io.github.hellomaker.launcher.controller.dashboard.InfoController"
+      prefHeight="400.0" prefWidth="600.0">
+    <VBox>
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+        <spacing>10</spacing>
+
+        <!-- 服务器状态 -->
+        <HBox spacing="10">
+            <Label text="服务器状态：" style="-fx-font-size: 16; -fx-font-weight: bold;" />
+            <Label fx:id="cpuLabel" style="-fx-font-size: 14;" text="45%" />
+        </HBox>
+
+        <!-- 内存使用率 -->
+        <HBox spacing="10">
+            <Label text="内存使用率：" style="-fx-font-size: 16; -fx-font-weight: bold;" />
+            <Label fx:id="memoryLabel" style="-fx-font-size: 14;" text="76%" />
+        </HBox>
+
+        <!-- C盘使用率 -->
+        <HBox spacing="10">
+            <Label text="C盘使用率：" style="-fx-font-size: 16; -fx-font-weight: bold;" />
+            <Label fx:id="cDiskLabel" style="-fx-font-size: 14;" text="70%" />
+        </HBox>
+
+        <!-- D盘使用率 -->
+        <HBox spacing="10">
+            <Label text="D盘使用率：" style="-fx-font-size: 16; -fx-font-weight: bold;" />
+            <Label fx:id="dDiskLabel" style="-fx-font-size: 14;" text="43%"/>
+        </HBox>
+    </VBox>
+</VBox>

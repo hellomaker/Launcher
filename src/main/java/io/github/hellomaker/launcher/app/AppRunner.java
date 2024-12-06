@@ -1,12 +1,15 @@
 package io.github.hellomaker.launcher.app;
 
+import io.github.hellomaker.launcher.common.SymmetricEncryption;
 import io.github.hellomaker.launcher.pool.MyThreadPool;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
-@Slf4j
 public abstract class AppRunner {
+    static Logger log = LoggerFactory.getLogger(AppRunner.class);
+
     static final String[] args = {
 
     };

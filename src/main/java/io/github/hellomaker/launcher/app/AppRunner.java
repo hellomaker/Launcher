@@ -67,10 +67,14 @@ public abstract class AppRunner {
         }
         try {
             // 获取 Runtime 实例
-            Runtime runtime = Runtime.getRuntime();
+//            Runtime runtime = Runtime.getRuntime();
 
             // 执行命令
-            Process process = runtime.exec(command.toString());
+//            Process process = runtime.exec(command.toString());
+
+            ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "chcp 65001 && " + command);
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
 
             //填充参数
             paddingArgs(process, passwd);

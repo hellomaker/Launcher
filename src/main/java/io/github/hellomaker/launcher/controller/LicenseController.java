@@ -1,17 +1,14 @@
 package io.github.hellomaker.launcher.controller;
 
-import io.github.hellomaker.launcher.Storage;
+import io.github.hellomaker.launcher.app.Storage;
 import io.github.hellomaker.launcher.app.AppConst;
-import io.github.hellomaker.launcher.app.AppRunner;
 import io.github.hellomaker.launcher.app.ProcessUtil;
 import io.github.hellomaker.launcher.app.StatusEnum;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
-import io.github.hellomaker.launcher.verify.storage.SaferStorageImpl;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -12,6 +12,29 @@ public class UsageInfo {
     }
 
     // Getters and Setters for the fields
+    public float getCpuUsage() {
+        return cpuUsage;
+    }
+
+    public void setCpuUsage(float cpuUsage) {
+        this.cpuUsage = cpuUsage;
+    }
+
+    public long getAvailableMemory() {
+        return availableMemory;
+    }
+
+    public void setAvailableMemory(long availableMemory) {
+        this.availableMemory = availableMemory;
+    }
+
+    public float getMemoryUsagePercentage() {
+        return memoryUsagePercentage;
+    }
+
+    public void setMemoryUsagePercentage(float memoryUsagePercentage) {
+        this.memoryUsagePercentage = memoryUsagePercentage;
+    }
 
     @Override
     public String toString() {

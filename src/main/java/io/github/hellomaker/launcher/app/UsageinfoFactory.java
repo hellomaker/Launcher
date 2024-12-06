@@ -1,4 +1,4 @@
-package io.github.hellomaker.launcher;
+package io.github.hellomaker.launcher.app;
 
 import io.github.hellomaker.launcher.app.system.UsageInfo;
 

@@ -1,20 +1,15 @@
 package io.github.hellomaker.launcher;
 
 import com.dustinredmond.fxtrayicon.FXTrayIcon;
-import io.github.hellomaker.launcher.app.AppConst;
-import io.github.hellomaker.launcher.app.ProcessUtil;
-import io.github.hellomaker.launcher.app.StatusEnum;
+import io.github.hellomaker.launcher.app.Storage;
 import io.github.hellomaker.launcher.pool.MyThreadPool;
-import io.github.hellomaker.launcher.verify.VerifyInfo;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

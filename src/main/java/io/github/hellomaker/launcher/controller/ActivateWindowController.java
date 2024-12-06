@@ -1,6 +1,6 @@
 package io.github.hellomaker.launcher.controller;
 
-import io.github.hellomaker.launcher.Storage;
+import io.github.hellomaker.launcher.app.Storage;
 import io.github.hellomaker.launcher.common.SymmetricEncryption;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
 import javafx.event.ActionEvent;

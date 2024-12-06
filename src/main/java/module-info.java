@@ -16,4 +16,6 @@ module io.github.hellomaker.launcher {
     opens io.github.hellomaker.launcher.controller.dashboard to javafx.fxml;
     exports io.github.hellomaker.launcher.app.system;
     exports io.github.hellomaker.launcher.app.system.info;
+    exports io.github.hellomaker.launcher.app.service;
+    opens io.github.hellomaker.launcher.app to javafx.fxml;
 }

@@ -1,6 +1,5 @@
 package io.github.hellomaker.launcher.verify.storage;
 
-import io.github.hellomaker.launcher.Storage;
 import io.github.hellomaker.launcher.common.SafeFileWriter;
 //import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;

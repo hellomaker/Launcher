@@ -1,9 +1,5 @@
-package io.github.hellomaker.launcher;
+package io.github.hellomaker.launcher.app;
 
-import io.github.hellomaker.launcher.app.AppConst;
-import io.github.hellomaker.launcher.app.AppRunner;
-import io.github.hellomaker.launcher.app.ProcessUtil;
-import io.github.hellomaker.launcher.app.StatusEnum;
 import io.github.hellomaker.launcher.app.system.SystemInfo;
 import io.github.hellomaker.launcher.common.SymmetricEncryption;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
@@ -20,7 +16,7 @@ import java.util.function.Consumer;
 /**
  * @author hellomaker
  */
-public class Storage {
+public class Storage implements StatusListen{
 
     static Logger log = LoggerFactory.getLogger(Storage.class);
 
@@ -78,7 +74,7 @@ public class Storage {
         try {
             pidByPort = ProcessUtil.findPidByPort(AppConst.APP_PORT);
             ProcessUtil.taskKill(pidByPort);
-            status.set(StatusEnum.NOT_RUNNING);
+            setStatus(StatusEnum.NOT_RUNNING);
         } catch (Exception e) {
             log.error("程序退出，执行任务错误：", e);
         }
@@ -89,9 +85,9 @@ public class Storage {
             String pidByPort = ProcessUtil.findPidByPort(AppConst.APP_PORT);
 //            Platform.runLater(() -> {
                 if (StringUtils.isEmpty(pidByPort)) {
-                    status.set(StatusEnum.NOT_RUNNING);
+                    setStatus(StatusEnum.NOT_RUNNING);
                 } else {
-                    status.set(StatusEnum.IN_RUNNING);
+                    setStatus(StatusEnum.IN_RUNNING);
                 }
 //            });
         } catch (Exception e) {
@@ -131,27 +127,33 @@ public class Storage {
     //0 未运行，1 正在运行，2 已运行，3 运行失败
     ObjectProperty<StatusEnum> status = new SimpleObjectProperty<>(StatusEnum.NOT_RUNNING);
 
+    @Override
     public void addStatusListener(Consumer<StatusEnum> changeListener) {
         status.addListener((observableValue, statusEnum, t1) -> changeListener.accept(t1));
         try {
             String pidByPort = ProcessUtil.findPidByPort(AppConst.APP_PORT);
             if (StringUtils.isEmpty(pidByPort)) {
-                status.set(StatusEnum.NOT_RUNNING);
+                setStatus(StatusEnum.NOT_RUNNING);
             } else {
-                status.set(StatusEnum.IN_RUNNING);
+                setStatus(StatusEnum.IN_RUNNING);
             }
         } catch (Exception e) {
 
         }
     }
 
+    @Override
+    public void setStatus(StatusEnum status) {
+        this.status.set(status);
+    }
+
     public void run(String... args) {
         try {
             AppRunner.run("6z_yWCo$jVVweh_5", args);
-            status.set(StatusEnum.IN_RUNNING);
+            setStatus(StatusEnum.IN_RUNNING);
         } catch (Exception e) {
             log.error("启动错误：", e);
-            status.set(StatusEnum.RUNNING_FAILED);
+            setStatus(StatusEnum.RUNNING_FAILED);
         }
     }
 

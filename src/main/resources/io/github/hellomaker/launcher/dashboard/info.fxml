@@ -1,40 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="io.github.hellomaker.launcher.controller.dashboard.InfoController"
-      prefHeight="400.0" prefWidth="600.0">
-    <VBox>
-        <padding>
-            <Insets top="10" right="10" bottom="10" left="10"/>
-        </padding>
-        <spacing>10</spacing>
+<?import javafx.scene.chart.PieChart?>
 
-        <!-- 服务器状态 -->
-        <HBox spacing="10">
-            <Label text="服务器状态：" style="-fx-font-size: 16; -fx-font-weight: bold;" />
-            <Label fx:id="cpuLabel" style="-fx-font-size: 14;" text="45%" />
-        </HBox>
+<GridPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.hellomaker.launcher.controller.dashboard.InfoController">
 
-        <!-- 内存使用率 -->
-        <HBox spacing="10">
-            <Label text="内存使用率：" style="-fx-font-size: 16; -fx-font-weight: bold;" />
-            <Label fx:id="memoryLabel" style="-fx-font-size: 14;" text="76%" />
-        </HBox>
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+         <children>
+            <Label style="-fx-font-weight: bold; -fx-font-size: 18px;" text="性能">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </VBox>
+   
+<!--       <Label text="服务器状态" GridPane.columnIndex="0" GridPane.rowIndex="0" />-->
+<!--       <Label text="硬盘存储状态" GridPane.columnIndex="1" GridPane.rowIndex="0" />-->
+   
+       <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="2">
+      <children>
+              <HBox alignment="CENTER" spacing="10">
+                 <children>
+<!--                     <Label fx:id="cpuUsageLabel" text="15654" />-->
+                     <PieChart fx:id="cpuUsageChart" title="CPU使用率">
+                  </PieChart>
+                 </children>
+              </HBox>
+              <HBox alignment="CENTER" spacing="10">
+               <children>
+                     <PieChart fx:id="diskDUsageChart" title="D盘使用率" />
+               </children>
+              </HBox>
+      </children>
+       </VBox>
+   
+       <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <children>
+              <HBox alignment="CENTER" spacing="10">
+               <children>
+                     <PieChart fx:id="memoryUsageChart" title="内存占用率" />
+               </children>
+              </HBox>
+              <HBox alignment="CENTER" spacing="10">
+                 <children>
+                  <VBox prefHeight="404.0" prefWidth="100.0">
+                     <children>
+                        <Label minHeight="-Infinity" minWidth="-Infinity" text="ixlab文件夹占用">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="ixlabUsage" minHeight="-Infinity" minWidth="-Infinity" text="18821MB">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+<!--                     <Label fx:id="diskDUsageLabel" text="53.0%" />-->
+                 </children>
+              </HBox>
+      </children>
+       </VBox>
 
-        <!-- C盘使用率 -->
-        <HBox spacing="10">
-            <Label text="C盘使用率：" style="-fx-font-size: 16; -fx-font-weight: bold;" />
-            <Label fx:id="cDiskLabel" style="-fx-font-size: 14;" text="70%" />
-        </HBox>
 
-        <!-- D盘使用率 -->
-        <HBox spacing="10">
-            <Label text="D盘使用率：" style="-fx-font-size: 16; -fx-font-weight: bold;" />
-            <Label fx:id="dDiskLabel" style="-fx-font-size: 14;" text="43%"/>
-        </HBox>
-    </VBox>
-</VBox>
+       <VBox GridPane.columnIndex="0" GridPane.rowIndex="3">
+           <padding>
+               <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+           </padding>
+           <spacing>10</spacing>
+   <children>
+   
+              <Label style="-fx-font-size: 18; -fx-font-weight: bold;" text="设备规格" />
+   </children>
+       </VBox>
+
+           <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4">
+<children>
+
+                     <Label style="-fx-font-size: 14;" text="系统版本号" />
+               <Label fx:id="systemVersionLabel" text="SNBD19080.SNB.COM" />
+
+                     <Label style="-fx-font-size: 14;" text="处理器" />
+               <Label fx:id="cpuLabel" text="Intel(R) Core(TM) i7-10700 CPU @ 2.90GHz 2.90 GHz" />
+
+
+</children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
+        </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+             <Label style="-fx-font-size: 14;" text="机带 RAM" />
+             <Label fx:id="ramLabel" text="32.0 GB (31.8 GB 可用)" />
+   
+             <Label style="-fx-font-size: 14;" text="硬盘" />
+             <Label fx:id="diskLabel" text="16AA89C1-FF47-4F59-8D87-3C0711573650" />
+         </children>
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin>
+      </VBox>
+   </children>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+<!--   <columnConstraints>-->
+<!--      <ColumnConstraints />-->
+<!--      <ColumnConstraints />-->
+<!--   </columnConstraints>-->
+<!--   <rowConstraints>-->
+<!--      <RowConstraints />-->
+<!--      <RowConstraints />-->
+<!--   </rowConstraints>-->
+<!--    </GridPane>-->
+</GridPane>

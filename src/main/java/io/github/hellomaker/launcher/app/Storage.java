@@ -1,6 +1,8 @@
 package io.github.hellomaker.launcher.app;
 
 import io.github.hellomaker.launcher.app.system.SystemInfo;
+import io.github.hellomaker.launcher.app.system.SystemInfoFetcher;
+import io.github.hellomaker.launcher.app.system.impl.WmicSystemInfoFetcher;
 import io.github.hellomaker.launcher.common.SymmetricEncryption;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
 import io.github.hellomaker.launcher.verify.storage.SaferStorage;
@@ -30,7 +32,8 @@ public class Storage implements StatusListen{
         ins = new Storage();
         ins.activeCodeStorage = new SaferStorageImpl();
 //        ins.mainBoardSerialNumber = SystemInfoFactory.getMainBoardSerialNumber();
-        ins.systemInfo = SystemInfoFactory.fetchSystemInfo();
+        SystemInfoFetcher systemInfoFetcher = new WmicSystemInfoFetcher();
+        ins.systemInfo = systemInfoFetcher.fetchSystemInfo();
 //        String activeCode = ins.getActiveCode();
 //        boolean isActive = false;
 //        if (activeCode != null) {
@@ -130,16 +133,16 @@ public class Storage implements StatusListen{
     @Override
     public void addStatusListener(Consumer<StatusEnum> changeListener) {
         status.addListener((observableValue, statusEnum, t1) -> changeListener.accept(t1));
-        try {
-            String pidByPort = ProcessUtil.findPidByPort(AppConst.APP_PORT);
-            if (StringUtils.isEmpty(pidByPort)) {
-                setStatus(StatusEnum.NOT_RUNNING);
-            } else {
-                setStatus(StatusEnum.IN_RUNNING);
-            }
-        } catch (Exception e) {
-
-        }
+//        try {
+//            String pidByPort = ProcessUtil.findPidByPort(AppConst.APP_PORT);
+//            if (StringUtils.isEmpty(pidByPort)) {
+//                setStatus(StatusEnum.NOT_RUNNING);
+//            } else {
+//                setStatus(StatusEnum.IN_RUNNING);
+//            }
+//        } catch (Exception e) {
+//
+//        }
     }
 
     @Override

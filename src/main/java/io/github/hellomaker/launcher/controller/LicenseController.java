@@ -4,6 +4,8 @@ import io.github.hellomaker.launcher.app.Storage;
 import io.github.hellomaker.launcher.app.AppConst;
 import io.github.hellomaker.launcher.app.ProcessUtil;
 import io.github.hellomaker.launcher.app.StatusEnum;
+import io.github.hellomaker.launcher.common.TimeUtil;
+import io.github.hellomaker.launcher.pool.MyThreadPool;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -69,6 +71,11 @@ public class LicenseController {
     @FXML
     public void initialize() {
 //        validMenuNameList.wrappingWidthProperty().bind(validMenuNameList.layoutBoundsProperty().get());
+        MyThreadPool.getInstance().submit(this::init);
+    }
+
+    private void init() {
+
         Storage.getInstance().addActiveListener((observableValue, aBoolean, t1) -> {
             if (t1) {
                 VerifyInfo verifyInfo = Storage.getInstance().getVerifyInfo();
@@ -94,6 +101,8 @@ public class LicenseController {
             }
         });
 
+//        TimeUtil.printMillsToLastPoint("license 1  ");
+
         Storage.getInstance().addStatusListener(statusEvent -> {
             Platform.runLater(() -> {
 //                Text statusText = (Text) licensePane.lookup("#status");
@@ -108,6 +117,9 @@ public class LicenseController {
                 }
             });
         });
+
+//        TimeUtil.printMillsToLastPoint("license 2  ");
+//        TimeUtil.closePoint();
     }
 
     @FXML

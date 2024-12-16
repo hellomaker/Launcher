@@ -8,5 +8,4 @@ public interface ServiceItemStatusStrategy {
 
     void stop();
 
-
 }

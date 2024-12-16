@@ -1,14 +1,15 @@
-package io.github.hellomaker.launcher.app;
+package io.github.hellomaker.launcher.app.system.impl;
 
 import io.github.hellomaker.launcher.app.system.UsageInfo;
+import io.github.hellomaker.launcher.app.system.UsageInfoFetcher;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-@Deprecated
-public abstract class UsageinfoFactory {
+public class WmicUsageInfoFetcher implements UsageInfoFetcher {
 
-    public static UsageInfo fetchUsageInfo()  {
+    @Override
+    public UsageInfo fetchUsageInfo() {
         try {
             // Initialize variables to store CPU and Memory info
             float cpuUsage = -1;
@@ -65,7 +66,4 @@ public abstract class UsageinfoFactory {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println(fetchUsageInfo());
-    }
 }

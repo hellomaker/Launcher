@@ -37,6 +37,9 @@ public class AutoListenStrategy implements ServiceItemStatusStrategy {
                     String serviceName = serviceItemStatus.getServiceItem().getServiceName();
                     try {
                         ServiceStatus serviceStatus = ProcessUtil.checkServiceStatus(serviceName);
+                        if (serviceStatus.getStatusEnum() == null) {
+                            continue;
+                        }
                         serviceItemStatus.setStatus(serviceStatus.getStatusEnum());
                     } catch (IOException | InterruptedException e) {
                         e.printStackTrace();

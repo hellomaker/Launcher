@@ -5,10 +5,23 @@
       "pattern":"\\QMETA-INF/services/org.slf4j.spi.SLF4JServiceProvider\\E"
     }, 
     {
+      "pattern":"\\Qcom/sun/jna/win32-x86-64/jnidispatch.dll\\E"
+    }, 
+    {
       "pattern":"\\Qlogback.xml\\E"
+    }, 
+    {
+      "pattern":"\\Qoshi.properties\\E"
     }
   ]},
   "bundles":[
+    {
+      "name":"com.sun.java.swing.plaf.windows.resources.windows",
+      "classNames":[
+        "com.sun.java.swing.plaf.windows.resources.windows", 
+        "com.sun.java.swing.plaf.windows.resources.windows_zh_CN"
+      ]
+    }, 
     {
       "name":"com.sun.javafx.tk.quantum.QuantumMessagesBundle",
       "locales":[
@@ -20,9 +33,15 @@
     {
       "name":"com.sun.org.apache.xerces.internal.impl.msg.XMLMessages",
       "locales":[
-        "", 
         "und", 
         "zh-CN"
+      ]
+    }, 
+    {
+      "name":"com.sun.swing.internal.plaf.basic.resources.basic",
+      "classNames":[
+        "com.sun.swing.internal.plaf.basic.resources.basic", 
+        "com.sun.swing.internal.plaf.basic.resources.basic_zh_CN"
       ]
     }, 
     {
@@ -49,6 +68,20 @@
         "", 
         "und", 
         "zh-CN"
+      ]
+    }, 
+    {
+      "name":"sun.awt.resources.awt",
+      "classNames":[
+        "sun.awt.resources.awt", 
+        "sun.awt.resources.awt_zh_CN"
+      ]
+    }, 
+    {
+      "name":"sun.awt.windows.awtLocalization",
+      "classNames":[
+        "sun.awt.windows.awtLocalization", 
+        "sun.awt.windows.awtLocalization_zh_CN"
       ]
     }
   ]

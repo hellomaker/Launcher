@@ -104,20 +104,20 @@
          </VBox>
       </HBox>
    </VBox>
-   <Button layoutX="200.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#run"
-           style="-fx-background-color: #4a9bff; -fx-text-fill: #ffffff; -fx-border-color: lightgray; -fx-border-radius: 5;"
-           text="运行" textFill="WHITE">
-      <font>
-         <Font size="14.0"/>
-      </font>
-   </Button>
-   <Button fx:id="cancelButton" layoutX="275.0" layoutY="335.0" mnemonicParsing="true" onAction="#stop"
-           style="-fx-background-color: #eaeaea; -fx-text-fill: #333333; -fx-border-color: lightgray; -fx-border-radius: 5;"
-           text="停止">
-      <font>
-         <Font size="14.0"/>
-      </font>
-   </Button>
+<!--   <Button layoutX="200.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#run"-->
+<!--           style="-fx-background-color: #4a9bff; -fx-text-fill: #ffffff; -fx-border-color: lightgray; -fx-border-radius: 5;"-->
+<!--           text="运行" textFill="WHITE">-->
+<!--      <font>-->
+<!--         <Font size="14.0"/>-->
+<!--      </font>-->
+<!--   </Button>-->
+<!--   <Button fx:id="cancelButton" layoutX="275.0" layoutY="335.0" mnemonicParsing="true" onAction="#stop"-->
+<!--           style="-fx-background-color: #eaeaea; -fx-text-fill: #333333; -fx-border-color: lightgray; -fx-border-radius: 5;"-->
+<!--           text="停止">-->
+<!--      <font>-->
+<!--         <Font size="14.0"/>-->
+<!--      </font>-->
+<!--   </Button>-->
    <HBox prefHeight="65.0" prefWidth="601.0">
       <padding>
          <Insets left="20.0" top="20.0"/>

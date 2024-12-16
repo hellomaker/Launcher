@@ -18,6 +18,18 @@
         <padding>
             <Insets bottom="5" left="5" right="5" top="5"/>
         </padding>
+        <Rectangle fill="#FF0000" height="10" width="10" fx:id="ixlabStatus">
+            <HBox.margin>
+                <Insets top="7.0"/>
+            </HBox.margin>
+        </Rectangle>
+        <Label style="-fx-font-size: 12; -fx-padding: 5; -fx-text-fill: black;" text="iXLAB"/>
+    </HBox>
+
+    <HBox>
+        <padding>
+            <Insets bottom="5" left="5" right="5" top="5"/>
+        </padding>
         <Rectangle fill="#FF0000" height="10" width="10" fx:id="redisStatus">
             <HBox.margin>
                 <Insets top="7.0"/>

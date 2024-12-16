@@ -9,70 +9,207 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.shape.Rectangle?>
 
-<VBox prefWidth="600" spacing="10" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="io.github.hellomaker.launcher.controller.dashboard.IndexController">
-    <VBox spacing="10" style="-fx-padding: 10;">
-        <!--        <HBox spacing="10" style="-fx-padding: 5;">-->
-        <!--            <Label text="开机自启" style="-fx-font-size: 14;"/>-->
-        <!--            <Circle fill="red" radius="5"/>-->
-        <!--            <Button text="启用" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>-->
-        <!--        </HBox>-->
-        <!--        <HBox spacing="10" style="-fx-padding: 5;">-->
-        <!--            <Label text="数据库工具" style="-fx-font-size: 14;"/>-->
-        <!--            <Button text="打开" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>-->
-        <!--        </HBox>-->
-        <Label style="-fx-font-size: 16; -fx-font-weight: bold;" text="部署"/>
-        <HBox spacing="10" style="-fx-padding: 5;">
-            <Label style="-fx-font-size: 14;" text="一键部署"/>
-            <!--            <Circle fill="red" radius="5"/>-->
-            <Button onAction="#startInstallAll" style="-fx-background-color: #2196F3; -fx-text-fill: white;"
-                    text="启动部署"/>
-        </HBox>
-    </VBox>
-    <VBox spacing="10" style="-fx-padding: 10;">
-        <Label style="-fx-font-size: 16; -fx-font-weight: bold;" text="套件"/>
-        <HBox fx:id="redis" spacing="10" style="-fx-padding: 5;">
-            <Label style="-fx-font-size: 14;" text="Redis 6.2">
-                <HBox.margin>
-                    <Insets top="2.0"/>
-                </HBox.margin>
-            </Label>
-            <Rectangle fill="#FF0000" height="10" width="10" fx:id="redisStatus">
-                <HBox.margin>
-                    <Insets top="7.0"/>
-                </HBox.margin>
-            </Rectangle>
-            <Button onAction="#startItem" style="-fx-background-color: #2196F3; -fx-text-fill: white;"
-                    text="启动"/>
-            <Button onAction="#restartItem" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;"
-                    text="重启"/>
-            <Button style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="配置"/>
-        </HBox>
-        <HBox fx:id="mysql" spacing="10" style="-fx-padding: 5;">
-            <Label style="-fx-font-size: 14;" text="MySQL 8.0">
-                <HBox.margin>
-                    <Insets top="2.0"/>
-                </HBox.margin>
-            </Label>
-            <Rectangle fill="#FF0000" height="10" width="10" fx:id="mysqlStatus">
-                <HBox.margin>
-                    <Insets top="7.0"/>
-                </HBox.margin>
-            </Rectangle>
-            <Button onAction="#startItem" style="-fx-background-color: #2196F3; -fx-text-fill: white;"
-                    text="启动"/>
-            <Button onAction="#restartItem" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;"
-                    text="重启"/>
-            <Button style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="配置"/>
-        </HBox>
-    </VBox>
-    <VBox spacing="10" style="-fx-padding: 10;">
-        <Label style="-fx-font-size: 14;" text="运行状态"/>
-        <TextArea fx:id="logArea"
-                  style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 5; -fx-font-size: 12pt; -fx-text-fill: #2196F3;"
-                  text="2024-12-03 15:00:45 Nginx1.15.11 已停止\n2024-12-03 15:00:45 MySQL5.7.26 已停止\n2024-12-03 15:00:45 Nginx1.15.11 已启动"
-                  wrapText="true"/>
-        <Button style="-fx-background-color: #46a7f4; -fx-text-fill: white;" text="清空"/>
-    </VBox>
+<VBox prefWidth="600" spacing="10" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.hellomaker.launcher.controller.dashboard.IndexController">
+   <children>
+       <VBox spacing="3.0">
+          <children>
+              <!--        <HBox spacing="10" style="-fx-padding: 5;">-->
+              <!--            <Label text="开机自启" style="-fx-font-size: 14;"/>-->
+              <!--            <Circle fill="red" radius="5"/>-->
+              <!--            <Button text="启用" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>-->
+              <!--        </HBox>-->
+              <!--        <HBox spacing="10" style="-fx-padding: 5;">-->
+              <!--            <Label text="数据库工具" style="-fx-font-size: 14;"/>-->
+              <!--            <Button text="打开" style="-fx-background-color: #2196F3; -fx-text-fill: white;"/>-->
+              <!--        </HBox>-->
+              <Label style="-fx-font-size: 16; -fx-font-weight: bold;" text="部署" />
+              <HBox spacing="10" style="-fx-padding: 5;">
+                 <children>
+         <!--            <Label style="-fx-font-size: 14;" text="一键部署"/>-->
+                     <!--            <Circle fill="red" radius="5"/>-->
+                     <Button onAction="#startInstallAll" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="启动部署" />
+                 </children>
+              </HBox>
+          </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+       </VBox>
+
+       <VBox spacing="4.0">
+           <children>
+               <Label style="-fx-font-size: 16; -fx-font-weight: bold;" text="套件" />
+<!--               <ScrollPane minHeight="200" style="-fx-background-color: white;">-->
+                   <VBox >
+                       <HBox fx:id="ixlab" spacing="10" style="-fx-padding: 5;">
+                           <children>
+                               <Label style="-fx-font-size: 14;" text="ixlab">
+                                   <HBox.margin>
+                                       <Insets top="2.0" />
+                                   </HBox.margin>
+                               </Label>
+                               <Rectangle fx:id="ixlabStatus" fill="#FF0000" height="10" width="10">
+                                   <HBox.margin>
+                                       <Insets top="7.0" />
+                                   </HBox.margin>
+                               </Rectangle>
+                               <Button fx:id="ixlabStartButton" onAction="#startIXLABItem" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="启动" />
+                               <Button onAction="#restartIXLABItem" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;" text="重启" />
+                               <!--            <Button onAction="#config" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="配置"/>-->
+                               <Button onAction="#logs" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="日志" />
+                           </children>
+                       </HBox>
+                       <HBox fx:id="redis" spacing="10" style="-fx-padding: 5;">
+                           <children>
+                               <Label style="-fx-font-size: 14;" text="Redis 6.2">
+                                   <HBox.margin>
+                                       <Insets top="2.0" />
+                                   </HBox.margin>
+                               </Label>
+                               <Rectangle fx:id="redisStatus" fill="#FF0000" height="10" width="10">
+                                   <HBox.margin>
+                                       <Insets top="7.0" />
+                                   </HBox.margin>
+                               </Rectangle>
+                               <Button fx:id="redisStartButton" onAction="#startItem" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="启动" />
+                               <Button onAction="#restartItem" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;" text="重启" />
+                               <Button onAction="#config" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="配置" />
+                               <Button onAction="#logs" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="日志" />
+                           </children>
+                       </HBox>
+                       <HBox fx:id="mysql" spacing="10" style="-fx-padding: 5;">
+                           <children>
+                               <Label style="-fx-font-size: 14;" text="MySQL 8.0">
+                                   <HBox.margin>
+                                       <Insets top="2.0" />
+                                   </HBox.margin>
+                               </Label>
+                               <Rectangle fx:id="mysqlStatus" fill="#FF0000" height="10" width="10">
+                                   <HBox.margin>
+                                       <Insets top="7.0" />
+                                   </HBox.margin>
+                               </Rectangle>
+                               <Button fx:id="mysqlStartButton" onAction="#startItem" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="启动" />
+                               <Button onAction="#restartItem" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;" text="重启" />
+                               <Button onAction="#config" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="配置" />
+                               <Button onAction="#logs" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="日志" />
+                           </children>
+                       </HBox>
+                       <HBox fx:id="DsConverterSvc" spacing="10" style="-fx-padding: 5;">
+                           <children>
+                               <Label style="-fx-font-size: 14;" text="only office 转换服务">
+                                   <HBox.margin>
+                                       <Insets top="2.0" />
+                                   </HBox.margin>
+                               </Label>
+                               <Rectangle fx:id="dsConverterSvcStatus" fill="#FF0000" height="10" width="10">
+                                   <HBox.margin>
+                                       <Insets top="7.0" />
+                                   </HBox.margin>
+                               </Rectangle>
+                               <Button fx:id="dsConverterSvcStartButton" onAction="#startItem" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="启动" />
+                               <Button onAction="#restartItem" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;" text="重启" />
+                               <Button onAction="#config" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="配置" />
+                               <Button onAction="#logs" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="日志" />
+                           </children>
+                       </HBox>
+                       <HBox fx:id="DsDocServiceSvc" spacing="10" style="-fx-padding: 5;">
+                           <children>
+                               <Label style="-fx-font-size: 14;" text="only office 文件服务">
+                                   <HBox.margin>
+                                       <Insets top="2.0" />
+                                   </HBox.margin>
+                               </Label>
+                               <Rectangle fx:id="dsDocServiceSvcStatus" fill="#FF0000" height="10" width="10">
+                                   <HBox.margin>
+                                       <Insets top="7.0" />
+                                   </HBox.margin>
+                               </Rectangle>
+                               <Button fx:id="dsDocServiceSvcStartButton" onAction="#startItem" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="启动" />
+                               <Button onAction="#restartItem" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;" text="重启" />
+                               <Button onAction="#config" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="配置" />
+                               <Button onAction="#logs" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="日志" />
+                           </children>
+                       </HBox>
+                       <HBox fx:id="DsProxySvc" spacing="10" style="-fx-padding: 5;">
+                           <children>
+                               <Label style="-fx-font-size: 14;" text="only office 代理服务">
+                                   <HBox.margin>
+                                       <Insets top="2.0" />
+                                   </HBox.margin>
+                               </Label>
+                               <Rectangle fx:id="dsProxySvcStatus" fill="#FF0000" height="10" width="10">
+                                   <HBox.margin>
+                                       <Insets top="7.0" />
+                                   </HBox.margin>
+                               </Rectangle>
+                               <Button fx:id="dsProxySvcStartButton" onAction="#startItem" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="启动" />
+                               <Button onAction="#restartItem" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;" text="重启" />
+                               <Button onAction="#config" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="配置" />
+                               <Button onAction="#logs" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="日志" />
+                           </children>
+                       </HBox>
+                       <HBox fx:id="rabbitMQ" spacing="10" style="-fx-padding: 5;">
+                           <children>
+                               <Label style="-fx-font-size: 14;" text="rabbit mq 服务">
+                                   <HBox.margin>
+                                       <Insets top="2.0" />
+                                   </HBox.margin>
+                               </Label>
+                               <Rectangle fx:id="rabbitMQStatus" fill="#FF0000" height="10" width="10">
+                                   <HBox.margin>
+                                       <Insets top="7.0" />
+                                   </HBox.margin>
+                               </Rectangle>
+                               <Button fx:id="rabbitMQStartButton" onAction="#startItem" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="启动" />
+                               <Button onAction="#restartItem" style="-fx-background-color: #9E9E9E; -fx-text-fill: white;" text="重启" />
+                               <Button onAction="#config" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="配置" />
+                               <Button onAction="#logs" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="日志" />
+                           </children>
+                       </HBox>
+                   </VBox>
+<!--                   <style>-->
+<!--                       .scroll-bar:vertical > .increment-button,-->
+<!--                       .scroll-bar:vertical > .decrement-button {-->
+<!--                       -fx-background-color: #D3D3D3;-->
+<!--                       -fx-background-insets: 0, 1;-->
+<!--                       }-->
+
+<!--                       .scroll-bar:vertical > .increment-arrow,-->
+<!--                       .scroll-bar:vertical > .decrement-arrow {-->
+<!--                       -fx-shape: "M 0 0 L 20 10 L 0 20 Z";-->
+<!--                       -fx-fill: #2E8B57;-->
+<!--                       }-->
+
+<!--                       .scroll-bar:vertical > .track {-->
+<!--                       -fx-background-color: #D3D3D3;-->
+<!--                       -fx-background-insets: 0, 1;-->
+<!--                       }-->
+
+<!--                       .scroll-bar:vertical > .thumb {-->
+<!--                       -fx-background-color: #2E8B57; /* 蓝色滚筒 */-->
+<!--                       -fx-background-insets: 1, 0;-->
+<!--                       -fx-background-radius: 2;-->
+<!--                       }-->
+<!--                   </style>-->
+<!--               </ScrollPane>-->
+           </children>
+           <padding>
+               <Insets left="10.0" />
+           </padding>
+       </VBox>
+
+       <VBox spacing="2.0">
+          <children>
+              <Label style="-fx-font-size: 14;" text="运行状态" />
+              <TextArea fx:id="logArea" style="-fx-background-color: white; -fx-border-color: lightgray; -fx-border-radius: 5; -fx-font-size: 12pt; -fx-text-fill: #2196F3;" wrapText="true" />
+              <Button style="-fx-background-color: #46a7f4; -fx-text-fill: white;" text="清空" onAction="#clearLogArea" />
+          </children>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+       </VBox>
+   </children>
+
+
 </VBox>

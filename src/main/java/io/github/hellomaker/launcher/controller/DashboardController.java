@@ -1,6 +1,7 @@
 package io.github.hellomaker.launcher.controller;
 
 import io.github.hellomaker.launcher.LauncherApplication;
+import io.github.hellomaker.launcher.common.TimeUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -68,18 +69,22 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
-
         try {
+            TimeUtil.startPoint();
             indexPane = new FXMLLoader(LauncherApplication.class.getResource("dashboard/index.fxml")).load();
+            TimeUtil.printMillsToLastPoint("初始化 index Pane ");
             databasePane = new FXMLLoader(LauncherApplication.class.getResource("dashboard/database.fxml")).load();
+            TimeUtil.printMillsToLastPoint("初始化 database Pane  ");
             infoPane = new FXMLLoader(LauncherApplication.class.getResource("dashboard/info.fxml")).load();
+            TimeUtil.printMillsToLastPoint("初始化 info Pane ");
             licensePane = new FXMLLoader(LauncherApplication.class.getResource("license.fxml")).load();
+            TimeUtil.printMillsToLastPoint("初始化 license Pane  ");
             bottomPaneDetail = new FXMLLoader(LauncherApplication.class.getResource("dashboard/bottom.fxml")).load();
-
+            TimeUtil.printMillsToLastPoint("初始化 bottom Pane ");
+            TimeUtil.printMillsToStartPoint("解析多个fxml  ");
         } catch (Exception e) {
             log.error("dashborad初始化加载fxml错误", e);
         }
-
 
         itemList.add(indexItem);
         itemList.add(databaseItem);

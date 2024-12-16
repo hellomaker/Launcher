@@ -1,41 +1,40 @@
-package io.github.hellomaker.launcher.app;
+package io.github.hellomaker.launcher.app.system.impl;
 
-import io.github.hellomaker.launcher.app.system.*;
+import io.github.hellomaker.launcher.app.system.SystemInfo;
+import io.github.hellomaker.launcher.app.system.SystemInfoFetcher;
 import io.github.hellomaker.launcher.app.system.info.CPUInfo;
 import io.github.hellomaker.launcher.app.system.info.DiskInfo;
 import io.github.hellomaker.launcher.app.system.info.MemoryInfo;
 import io.github.hellomaker.launcher.app.system.info.MotherboardInfo;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * @author hellomaker
- */
-@Deprecated
-public abstract class SystemInfoFactory {
+public class WmicSystemInfoFetcher implements SystemInfoFetcher {
 
-    public static SystemInfo fetchSystemInfo() {
+    @Override
+    public SystemInfo fetchSystemInfo() {
         SystemInfo systemInfo = new SystemInfo();
         MotherboardInfo motherboardInfo = new MotherboardInfo(); // 初始化主板信息对象
 
         try {
             // 将所有WMIC命令组合为一个命令字符串，包括主板信息
-            String command = "cmd /c \"wmic os get Caption,Version,BuildNumber /format:list & echo. & " +
-                    "wmic cpu get Name,NumberOfCores,NumberOfLogicalProcessors,MaxClockSpeed /format:list & echo. & " +
+            String command = "wmic os get Caption,Version,BuildNumber /format:list & echo. & " +
+                    "wmic cpu get MaxClockSpeed, Name,NumberOfCores,NumberOfLogicalProcessors /format:list & echo. & " +
                     "wmic memorychip get Capacity,Speed /format:list & echo. & " +
-                    "wmic diskdrive get Model,Size,InterfaceType /format:list & echo. & " +
+                    "wmic diskdrive get InterfaceType, Model,Size /format:list & echo. & " +
                     "wmic baseboard get Manufacturer,Model,SerialNumber /format:list & echo. & " +
-                    "wmic bios get SMBIOSBIOSVersion /format:list\"";
+                    "wmic bios get SMBIOSBIOSVersion /format:list";
 
-            Process process = Runtime.getRuntime().exec(command);
+//            Process process = Runtime.getRuntime().exec(command);
+            ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "chcp 65001 && " + command);
+            pb.redirectErrorStream(true); // 合并标准输出和错误输出
+            Process process = pb.start();
+
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
             // Pattern to match key-value pairs from wmic output
             Pattern pattern = Pattern.compile("^(\\w+)=(.*)$");
 
@@ -95,9 +94,9 @@ public abstract class SystemInfoFactory {
                             break;
                         case "model":
                             if (isDiskSection) {
-                                DiskInfo diskInfo = new DiskInfo();
-                                diskInfo.setModel(value);
-                                systemInfo.getDiskInfos().add(diskInfo);
+                                if (!systemInfo.getDiskInfos().isEmpty()) {
+                                    systemInfo.getDiskInfos().get(systemInfo.getDiskInfos().size() - 1).setModel(value);
+                                }
                             } else if (isMotherboardSection) {
                                 motherboardInfo.setModel(value);
                             }
@@ -108,9 +107,10 @@ public abstract class SystemInfoFactory {
                             }
                             break;
                         case "interfacetype":
-                            if (isDiskSection && !systemInfo.getDiskInfos().isEmpty()) {
-                                systemInfo.getDiskInfos().get(systemInfo.getDiskInfos().size() - 1).setInterfaceType(value);
-                            }
+                            isDiskSection = true;
+                            DiskInfo diskInfo = new DiskInfo();
+                            diskInfo.setInterfaceType(value);
+                            systemInfo.getDiskInfos().add(diskInfo);
                             break;
                         case "manufacturer":
                             isMotherboardSection = true;
@@ -150,5 +150,4 @@ public abstract class SystemInfoFactory {
 
         return systemInfo;
     }
-
 }

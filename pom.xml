@@ -99,7 +99,23 @@
             <artifactId>FXTrayIcon</artifactId>
             <version>4.2.0</version>
         </dependency>
-<!--        &lt;!&ndash; 其他依赖 &ndash;&gt;-->
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+            <version>6.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>5.12.1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna-platform</artifactId>
+            <version>5.12.1</version>
+        </dependency>
+
+        <!--        &lt;!&ndash; 其他依赖 &ndash;&gt;-->
 <!--        <dependency>-->
 <!--            <groupId>org.eclipse.aether</groupId>-->
 <!--            <artifactId>aether-connector-basic</artifactId>-->
@@ -159,38 +175,38 @@
 <!--                            <launcher>app</launcher>-->
 <!--                            <jlinkZipName>app</jlinkZipName>-->
 <!--                            <jlinkImageName>app</jlinkImageName>-->
-<!--                            <noManPages>true</noManPages>-->
+<!--                            <noManPages>true<\noManPages>-->
 <!--                            <stripDebug>true</stripDebug>-->
-<!--                            <noHeaderFiles>true</noHeaderFiles>-->
+<!--                            <noHeaderFiles>true<\noHeaderFiles>-->
 <!--                        </configuration>-->
 <!--                    </execution>-->
 <!--                </executions>-->
 <!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-assembly-plugin</artifactId>-->
-<!--                <version>3.6.0</version> &lt;!&ndash; 请根据需要选择最新版本 &ndash;&gt;-->
-<!--                <configuration>-->
-<!--                    <archive>-->
-<!--                        <manifest>-->
-<!--                            <mainClass>io.github.hellomaker.launcher.LauncherApplication</mainClass> &lt;!&ndash; 替换为你的主类 &ndash;&gt;-->
-<!--                        </manifest>-->
-<!--                    </archive>-->
-<!--                    <descriptorRefs>-->
-<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
-<!--                    </descriptorRefs>-->
-<!--                    <appendAssemblyId>false</appendAssemblyId>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>make-assembly</id>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>single</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.6.0</version> <!-- 请根据需要选择最新版本 -->
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>io.github.hellomaker.launcher.LauncherApplication</mainClass> <!-- 替换为你的主类 -->
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
 <!--            <plugin>-->
 <!--                <groupId>org.openjfx</groupId>-->

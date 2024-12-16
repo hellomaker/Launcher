@@ -6,6 +6,7 @@ module io.github.hellomaker.launcher {
     requires com.dustinredmond.fxtrayicon;
     requires javafx.controls;
     requires org.slf4j;
+    requires com.github.oshi;
     exports io.github.hellomaker.launcher.verify;
     exports io.github.hellomaker.launcher.app;
     opens io.github.hellomaker.launcher to javafx.fxml;

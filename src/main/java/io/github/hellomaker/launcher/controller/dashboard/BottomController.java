@@ -1,10 +1,12 @@
 package io.github.hellomaker.launcher.controller.dashboard;
 
+import io.github.hellomaker.launcher.app.Storage;
 import io.github.hellomaker.launcher.app.service.ServiceItem;
 import io.github.hellomaker.launcher.app.service.ServiceItemRegister;
 import io.github.hellomaker.launcher.app.service.ServiceItemRegisterFactory;
 import io.github.hellomaker.launcher.app.service.impl.AutoListenStrategy;
 import io.github.hellomaker.launcher.app.service.impl.ServiceItemRegisterImpl;
+import io.github.hellomaker.launcher.common.TimeUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.paint.Paint;
@@ -20,6 +22,8 @@ public class BottomController {
 
     @FXML
     public Rectangle mysqlStatus;
+    @FXML
+    public Rectangle ixlabStatus;
 
     Paint red = Paint.valueOf("#FF0000");
     Paint blue = Paint.valueOf("#87CEEB");
@@ -31,12 +35,15 @@ public class BottomController {
     @FXML
     public void initialize() {
 
+        TimeUtil.startPoint();
+
         serviceItemRegister = ServiceItemRegisterFactory.getRegister("auto");
         if (serviceItemRegister == null) {
             serviceItemRegister = new ServiceItemRegisterImpl(new AutoListenStrategy());
         }
 
-        serviceItemRegister.register(new ServiceItem("MYSQL(iXLab)", "bottom"), statusEnum -> {
+        //MYSQL8 MYSQL(iXLab)
+        serviceItemRegister.register(new ServiceItem("MYSQL8", "bottom"), statusEnum -> {
             Platform.runLater(() -> {
                 switch (statusEnum) {
                     case RUNNING:
@@ -81,6 +88,31 @@ public class BottomController {
         });
 
         serviceItemRegister.start();
+
+        Storage.getInstance().addStatusListener(statusEnum -> {
+            Platform.runLater(() -> {
+//                Text statusText = (Text) licensePane.lookup("#status");
+                switch (statusEnum) {
+                    case RUNNING:
+                        ixlabStatus.setFill(blue);
+                        break;
+                    case NOT_RUNNING:
+                        ixlabStatus.setFill(grey);
+                        break;
+                    case RUNNING_FAILED:
+                        ixlabStatus.setFill(red);
+                        break;
+                    case IN_RUNNING:
+                        ixlabStatus.setFill(green);
+                        break;
+                    default:
+                        ixlabStatus.setFill(grey);
+                        break;
+                }
+            });
+        });
+
+        TimeUtil.printMillsToStartPoint("bottom init");
     }
 
 }

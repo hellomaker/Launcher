@@ -226,8 +226,9 @@ public abstract class ProcessUtil {
      * @param command The command to execute.
      * @throws IOException If an I/O error occurs.
      */
-    private static void execCommand(String command) throws IOException, InterruptedException {
-        ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "chcp 65001 && " + command);
+    public static void execCommand(String command) throws IOException, InterruptedException {
+//        ProcessBuilder pb = new ProcessBuilder("cmd", "/c", "chcp 65001 && " + command);
+        ProcessBuilder pb = new ProcessBuilder("cmd", "/c", command);
         pb.redirectErrorStream(true); // 合并标准输出和错误输出
         Process process = pb.start();
 //        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), "UTF-8"))) {
@@ -248,16 +249,18 @@ public abstract class ProcessUtil {
             }
         }
         int exitCode = process.waitFor();
-        if (exitCode != 0) {
-            throw new IOException("Command failed with exit code: " + exitCode);
-        }
+//        if (exitCode != 0) {
+//            throw new IOException("Command failed with exit code: " + exitCode);
+//        }
     }
 
     // 测试方法
     public static void main(String[] args) {
         try {
             // 示例：检查一个名为 'YourServiceName' 的服务状态
-            System.out.println(checkServiceStatus("redis"));
+//            System.out.println(checkServiceStatus("redis"));
+
+            execCommand("explorer C:/");
 
             // 示例：重启一个名为 'YourServiceName' 的服务，并设置为自动启动
 //            restartService("YourServiceName");

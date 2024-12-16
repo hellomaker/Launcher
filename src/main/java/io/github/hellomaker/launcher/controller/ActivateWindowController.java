@@ -2,7 +2,10 @@ package io.github.hellomaker.launcher.controller;
 
 import io.github.hellomaker.launcher.app.Storage;
 import io.github.hellomaker.launcher.common.SymmetricEncryption;
+import io.github.hellomaker.launcher.common.TimeUtil;
+import io.github.hellomaker.launcher.pool.MyThreadPool;
 import io.github.hellomaker.launcher.verify.VerifyInfo;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class ActivateWindowController {
 
@@ -53,18 +57,26 @@ public class ActivateWindowController {
 
     @FXML
     public void initialize() {
-        String mainBoardSerialNumber = Storage.getInstance().getEncodeSerialNumber();
-        serialNumber.setText(mainBoardSerialNumber);
+        TimeUtil.startPoint();
+        CompletableFuture.supplyAsync(() -> Storage.getInstance().getEncodeSerialNumber(), MyThreadPool.getInstance().getThreadPoolExecutor()).thenAccept((sNum) -> {
+            Platform.runLater(() -> {
+                serialNumber.setText(sNum);
+            });
+        });
+
+        TimeUtil.printMillsToStartPoint("active  ");
     }
 
     public static void main(String[] args) {
         VerifyInfo verifyInfo = new VerifyInfo();
-        verifyInfo.setSerialNumber("QKMUO-1HDZH-C30C");
+//        verifyInfo.setSerialNumber("QKMUO-1HDZH-C30C");
+        //QKEGB-1FDZE-P1DS 测试机
+        verifyInfo.setSerialNumber("QKEGB-1FDZE-P1DS");
         verifyInfo.setValidDate("2030-01-01");
 //        verifyInfo.setValidMenuIdList(List.of(1012L,1013L,1014L,1015L,1016L,1017L,1018L,1019L,1020L,1021L,1022L,1023L,1024L,1025L));
 //        verifyInfo.setValidSubSystemNameList(List.of(1021L,1023L,1027L,1028L,1029L,1025L));
 //        verifyInfo.setValidMenuNameList(List.of("库存管理系统","库存管理系统dev","人事档案（dev）","人事档案（本地测试）","人事档案（远程测试）","库存管理（多语言）","库存管理系统（本地）","库存管理系统 local","人事档案（dev）","电子表单","设备档案","库存管理(开发版)","设备档案","设备档案(整合)"));
-        verifyInfo.setValidSubSystemNameList(List.of("iXLABOA","iXLABEquipment","iXLABBiobank","iXLABHR","iXLABFiles","iXLABInventory"));
+        verifyInfo.setValidSubSystemNameList(List.of("iXLABOA","iXLABEquipment","iXLABBiobank","iXLABHR","iXLABFiles","iXLABInventory", "iXLABPlatform"));
         verifyInfo.setValidTimes(-1L);
 
         System.out.println(SymmetricEncryption.encodeVerifyNumber(verifyInfo));
